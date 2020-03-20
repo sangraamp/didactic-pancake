@@ -23,24 +23,24 @@ int main(){
 int count=0;
 
 ifstream infile;
-infile.open("E:\\timestat.txt");            //location of txt file on my PC. can be modified for your PC.
+infile.open("E:\\timestat.txt");            //location of txt file on my PC. please modify accordingly for your PC.
 
 if(infile.fail()) cout<<"Your file didn't work.";
 
 else{ //main body starts
 
-double realminsum=0,realsecsum=0,sysminsum=0,syssecsum=0,userminsum=0,usersecsum=0;
+double realminsum=0,realsecsum=0,sysminsum=0,syssecsum=0,userminsum=0,usersecsum=0; //minute sum and sec sum separately
 
 string str;
 
-while(getline(infile, str))
+while(getline(infile, str))    //line by line
 {
 
-if(str[0]=='r')
+if(str[0]=='r')               //identifying real, user, sys lines
 {
 double minutes=toDouble(str,8,8);
 realminsum += minutes;
-double seconds= (toDouble(str,12,14)*0.001)+toDouble(str,10,10);
+double seconds= (toDouble(str,12,14)*0.001)+toDouble(str,10,10);       //converting minutes and seconds from string form to double
 realsecsum += seconds;
 }
 
@@ -59,7 +59,7 @@ sysminsum += minutes;
 double seconds=(toDouble(str,8,10)*0.001)+toDouble(str,6,6);
 syssecsum += seconds;
 
-count++;
+count++;   //Number of runs
 }
 
 }
@@ -84,7 +84,7 @@ double syssecavg = sysavg - (sysminavg*60);
 
 infile.close();  //just to be safe
 
-//now to calculate standard deviation (for seconds first,then converting to minutes and seconds)
+//now to calculate standard deviation (in seconds first, then converting to minutes and seconds)
 //I could have taken an arbitrarily long array to store the individual values of minutes and seconds
 //in the above loop itself but I'm aiming for efficiency
 //even if it means another 20-30 lines of code
@@ -95,7 +95,7 @@ if(infile.fail()) cout<<"Your file didn't work.";
 string s;
 double realsdsum=0,syssdsum=0,usersdsum=0; //to store sum of square terms
 
-while(getline(infile,s)){
+while(getline(infile,s)){  //same as above with suitable modifications
 
 if(s[0]=='r')
 {
@@ -152,9 +152,9 @@ if(infile.fail()) cout<<"Your file didn't work.";
 
 
 string st;
-int realcount=0,usercount=0,syscount=0;
+int realcount=0,usercount=0,syscount=0; //to store number of runs within given range
 
-while(getline(infile, st))
+while(getline(infile, st))  //same loop as above two loops with suitable modifications
 {
 
 if(st[0]=='r')
